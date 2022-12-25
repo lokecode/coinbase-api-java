@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="arbitageBot" />
+        <module name="coinbase-api-java" />
       </profile>
     </annotationProcessing>
   </component>
