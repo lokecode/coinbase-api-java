@@ -4,7 +4,6 @@ import java.math.BigDecimal
 
 data class CoinInformationModel(
     val symbol: String,
-    val baseSymbol: String,
-    val quoteSymbol: String,
-    val minQty: BigDecimal
+    val name: String,
+    val assetId:String
 )

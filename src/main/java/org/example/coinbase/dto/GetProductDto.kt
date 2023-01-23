@@ -1,0 +1,31 @@
+package org.example.coinbase.dto
+
+data class GetProductDto(
+    val product_id: String,
+    val price: String,
+    val price_percentage_change_24h: String,
+    val volume_24h: String,
+    val volume_percentage_change_24h: String,
+    val base_increment: String,
+    val quote_increment: String,
+    val quote_min_size: String,
+    val quote_max_size: String,
+    val base_min_size: String,
+    val base_max_size: String,
+    val base_name: String,
+    val quote_name: String,
+    val watched: Boolean,
+    val is_disabled: Boolean,
+    val new: Boolean,
+    val status: String,
+    val cancel_only: Boolean,
+    val limit_only: Boolean,
+    val post_only: Boolean,
+    val trading_disabled: Boolean,
+    val auction_mode: Boolean,
+    val product_type: String,
+    val quote_currency_id: String,
+    val base_currency_id: String,
+    val fcm_trading_session_details: String,
+    val mid_market_price: String
+)
