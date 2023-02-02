@@ -1,13 +1,13 @@
 package org.example.coinbase;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import okhttp3.Response;
 import org.example.coinbase.dto.*;
 import org.example.domain.enums.ApiMethods;
-import org.example.exchanges.coinbase.CoinbaseSignatureHelper;
 import org.example.exchanges.coinbase.converter.GetCryptocurrenciesDto;
 
-import static org.example.di.ok_http_client.OkHttpClient.okHttpClient;
+import static org.example.ok_http_client.OkHttpClient.okHttpClient;
 
 public class CoinbaseApi {
     public static ListAccountsDto getListAccounts() {
@@ -126,6 +126,28 @@ public class CoinbaseApi {
             System.out.println(responseString);
             if (response.code() == 200) {
                 return new Gson().fromJson(responseString, GetProductDto.class);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static String createOrder(
+            CreateOrderBuyRequestDto BuyRequest,
+            CreateOrderSellRequestDto SellRequest
+    ) {
+        try {
+            String body = (BuyRequest != null) ? JSON.toJSONString(BuyRequest) : JSON.toJSONString(SellRequest);
+            Response response = okHttpClient.newCall(
+                    CoinbaseSignatureHelper.request("/api/v3/brokerage/orders/", ApiMethods.POST, body)
+            ).execute();
+            String responseString = response.body().string();
+            System.out.println(responseString);
+            if (response.code() == 200) {
+                return responseString;
             } else {
                 return null;
             }

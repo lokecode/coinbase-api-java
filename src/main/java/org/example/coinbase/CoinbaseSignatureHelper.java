@@ -53,7 +53,8 @@ public class CoinbaseSignatureHelper {
                 .build();
 
         if (method.equals(ApiMethods.POST)) {
-            request = request.newBuilder().post(RequestBody.create(MediaType.parse("application/json"), body)).build();
+            RequestBody body2 = RequestBody.create(MediaType.parse("application/json"), body);
+            request = request.newBuilder().method(method.name(), body2).build();
         }
 
         System.out.println("https://api.coinbase.com"+endpoint);

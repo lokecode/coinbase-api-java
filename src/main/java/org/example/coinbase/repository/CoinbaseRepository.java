@@ -1,12 +1,16 @@
 package org.example.coinbase.repository;
 
 
+import org.example.coinbase.CoinbaseApi;
+import org.example.coinbase.converter.*;
 import org.example.coinbase.dto.*;
 import org.example.coinbase.model.*;
-import org.example.exchanges.coinbase.CoinbaseApi;
+import org.example.domain.enums.OrderSide;
 import org.example.exchanges.coinbase.converter.*;
 
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -75,5 +79,43 @@ public class CoinbaseRepository {
             return CoinInformationConverter.coinInformationConverter(response);
         }
         return Map.of();
+    }
+
+    public static String SellOrder(
+            String currency,
+            BigDecimal qauntity
+    ) {
+        String response = CoinbaseApi.createOrder(
+                null,
+                new CreateOrderSellRequestDto(
+                        OrderSide.SELL.name(),
+                        new CreateOrderSellRequestDto.market_market_ioc(qauntity),
+                        Instant.now().toEpochMilli()+"",
+                        currency
+                )
+        );
+        if (response != null) {
+            return response;
+        }
+        return "nothing";
+    }
+
+    public static String BuyOrder(
+            String currency,
+            BigDecimal amount
+    ) {
+        String response = CoinbaseApi.createOrder(
+                new CreateOrderBuyRequestDto(
+                        OrderSide.SELL.name(),
+                        new CreateOrderBuyRequestDto.market_market_ioc(amount),
+                        Instant.now().toEpochMilli()+"",
+                        currency
+                ),
+                null
+        );
+        if (response != null) {
+            return response;
+        }
+        return "nothing";
     }
 }
