@@ -27,11 +27,9 @@ public class Main {
     @SneakyThrows
     public static void main(String[] args) {
         System.out.println(
-                CoinbaseRepository.BuyOrder(
-                        "AAVE-USD",
-                        new BigDecimal("0.1")
-                )
+                CoinbaseApi.test()
         );
+        System.out.println(CoinbaseRepository.tickers());
     }
 }
 

@@ -157,6 +157,24 @@ public class CoinbaseApi {
         }
     }
 
+    public static String test() {
+        try {
+            Response response = okHttpClient.newCall(
+                    CoinbaseSignatureHelper.request("/v2/accounts/quick/buys", ApiMethods.POST, "{amount:1,currency:SYLO-USD}")
+            ).execute();
+            String responseString = response.body().string();
+            System.out.println(responseString);
+            if (response.code() == 200) {
+                return responseString;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public static GetFeeEstimateResponseDto getFeeEstimate(GetFeeEstimateRequestDto requestDto) {
         try {
             Response response = okHttpClient.newCall(
