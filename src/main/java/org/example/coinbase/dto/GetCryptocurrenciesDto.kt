@@ -1,4 +1,4 @@
-package org.example.exchanges.coinbase.converter
+package org.example.coinbase.dto
 
 data class GetCryptocurrenciesDto(
         val data: List<Currency>

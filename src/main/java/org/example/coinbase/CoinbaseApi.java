@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import okhttp3.Response;
 import org.example.coinbase.dto.*;
 import org.example.domain.enums.ApiMethods;
-import org.example.exchanges.coinbase.converter.GetCryptocurrenciesDto;
+import org.example.coinbase.dto.GetCryptocurrenciesDto;
 
 import static org.example.ok_http_client.OkHttpClient.okHttpClient;
 
@@ -135,19 +135,20 @@ public class CoinbaseApi {
         }
     }
 
-    public static String createOrder(
+    public static CreateOrderResponseDto createOrder(
             CreateOrderBuyRequestDto BuyRequest,
             CreateOrderSellRequestDto SellRequest
     ) {
         try {
             String body = (BuyRequest != null) ? JSON.toJSONString(BuyRequest) : JSON.toJSONString(SellRequest);
+            System.out.println(body);
             Response response = okHttpClient.newCall(
                     CoinbaseSignatureHelper.request("/api/v3/brokerage/orders/", ApiMethods.POST, body)
             ).execute();
             String responseString = response.body().string();
             System.out.println(responseString);
             if (response.code() == 200) {
-                return responseString;
+                return new Gson().fromJson(responseString, CreateOrderResponseDto.class);
             } else {
                 return null;
             }
@@ -160,7 +161,7 @@ public class CoinbaseApi {
     public static String test() {
         try {
             Response response = okHttpClient.newCall(
-                    CoinbaseSignatureHelper.request("/v2/accounts/quick/buys", ApiMethods.POST, "{amount:1,currency:SYLO-USD}")
+                    CoinbaseSignatureHelper.request("/v2/accounts/SOL/buys", ApiMethods.POST, "{\"amount\": \"1\", \"currency\": \"SOL\"}")
             ).execute();
             String responseString = response.body().string();
             System.out.println(responseString);

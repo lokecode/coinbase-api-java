@@ -3,10 +3,7 @@ package org.example;
 import com.alibaba.fastjson.JSON;
 import lombok.SneakyThrows;
 import org.example.coinbase.CoinbaseApi;
-import org.example.coinbase.dto.CreateOrderSellRequestDto;
-import org.example.coinbase.dto.GetFeeEstimateRequestDto;
-import org.example.coinbase.dto.GetProductDto;
-import org.example.coinbase.dto.ListProductsDto;
+import org.example.coinbase.dto.*;
 import org.example.coinbase.model.*;
 import org.example.coinbase.repository.CoinbaseRepository;
 import org.example.domain.enums.OrderSide;
@@ -27,9 +24,9 @@ public class Main {
     @SneakyThrows
     public static void main(String[] args) {
         System.out.println(
-                CoinbaseApi.test()
+                CoinbaseRepository.BuyOrder("SOL-USDT", new BigDecimal("0.488"))
         );
-        System.out.println(CoinbaseRepository.tickers());
     }
 }
-
+//{"success":true,"failure_reason":"UNKNOWN_FAILURE_REASON","order_id":"dd9d8d87-e6ff-4952-b9a7-0792e6f08911","success_response":{"order_id":"dd9d8d87-e6ff-4952-b9a7-0792e6f08911","product_id":"SOL-USDT","side":"BUY","client_order_id":"1676327097468"},"order_configuration":{"market_market_ioc":{"quote_size":"10"}}}
+//{"success":true,"failure_reason":"UNKNOWN_FAILURE_REASON","order_id":"5b8995c2-2f11-40e3-b21c-4f3275fce181","success_response":{"order_id":"5b8995c2-2f11-40e3-b21c-4f3275fce181","product_id":"SOL-USDT","side":"SELL","client_order_id":"1676327206356"},"order_configuration":{"market_market_ioc":{"base_size":"0.49"}}}

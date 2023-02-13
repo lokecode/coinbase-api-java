@@ -1,7 +1,7 @@
 package org.example.coinbase.converter;
 
 import org.example.coinbase.model.CoinInformationModel;
-import org.example.exchanges.coinbase.converter.GetCryptocurrenciesDto;
+import org.example.coinbase.dto.GetCryptocurrenciesDto;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -6,7 +6,6 @@ import org.example.coinbase.converter.*;
 import org.example.coinbase.dto.*;
 import org.example.coinbase.model.*;
 import org.example.domain.enums.OrderSide;
-import org.example.exchanges.coinbase.converter.*;
 
 
 import java.math.BigDecimal;
@@ -81,41 +80,41 @@ public class CoinbaseRepository {
         return Map.of();
     }
 
-    public static String SellOrder(
+    public static OrderResponse SellOrder(
             String currency,
             BigDecimal qauntity
     ) {
-        String response = CoinbaseApi.createOrder(
+        CreateOrderResponseDto response = CoinbaseApi.createOrder(
                 null,
                 new CreateOrderSellRequestDto(
                         OrderSide.SELL.name(),
-                        new CreateOrderSellRequestDto.market_market_ioc(qauntity),
+                        new CreateOrderSellRequestDto.market_market_ioc(new CreateOrderSellRequestDto.market_market_ioc.quote_size(qauntity+"")),
                         Instant.now().toEpochMilli()+"",
                         currency
                 )
         );
         if (response != null) {
-            return response;
+            return OrderReponseConverter.orderReponseConverter(response);
         }
-        return "nothing";
+        return null;
     }
 
-    public static String BuyOrder(
+    public static OrderResponse BuyOrder(
             String currency,
             BigDecimal amount
     ) {
-        String response = CoinbaseApi.createOrder(
+        CreateOrderResponseDto response = CoinbaseApi.createOrder(
                 new CreateOrderBuyRequestDto(
-                        OrderSide.SELL.name(),
-                        new CreateOrderBuyRequestDto.market_market_ioc(amount),
+                        OrderSide.BUY.name(),
+                        new CreateOrderBuyRequestDto.market_market_ioc(new CreateOrderBuyRequestDto.market_market_ioc.quote_size(amount+"")),
                         Instant.now().toEpochMilli()+"",
                         currency
                 ),
                 null
         );
         if (response != null) {
-            return response;
+            return OrderReponseConverter.orderReponseConverter(response);
         }
-        return "nothing";
+        return null;
     }
 }

@@ -10,6 +10,10 @@ data class CreateOrderBuyRequestDto(
     val product_id: String
 ) {
     data class market_market_ioc(
-        val quote_size: BigDecimal
-    )
+        val market_market_ioc: quote_size
+    ) {
+        data class quote_size(
+            val quote_size: String
+        )
+    }
 }
